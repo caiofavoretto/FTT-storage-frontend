@@ -8,7 +8,7 @@ export default function Header() {
     <Container>
       <TextButton>
         <FaPlus size={22} color="#fff" />
-        <ButtonText>NovoProduto</ButtonText>
+        <ButtonText>Novo produto</ButtonText>
       </TextButton>
 
       <IconButton>

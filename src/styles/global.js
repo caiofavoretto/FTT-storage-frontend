@@ -13,6 +13,10 @@ export default createGlobalStyle`
   body {
     background: #2A2A2D;
     -webkit-font-smoothing: antialiased !important;
+
+    @media (max-width: 1200px){
+      padding: 0 16px
+    }
   }
   body, input, button, textarea {
     color: #fff;

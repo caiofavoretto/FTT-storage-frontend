@@ -2,57 +2,127 @@ import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 import TableList from '../../components/TableList';
+import LoadingComponent from '../../components/Loading';
 
 import api from '../../service/api';
+
+import { CustomTypes } from '../../utils/Enums';
 
 import { Container, MainContainer, PageList } from './styles';
 
 export default function Main() {
+  const menuOptions = {
+    products: {
+      id: 1,
+      fields: {
+        type: {
+          name: 'Tipo',
+          type: CustomTypes.StringImage,
+        },
+        brand: {
+          name: 'Marca',
+          type: CustomTypes.String,
+        },
+        value: {
+          name: 'Valor',
+          type: CustomTypes.Currency,
+        },
+        amount: {
+          name: 'Quantidade',
+          type: CustomTypes.Number,
+        },
+        created_at: {
+          name: 'Registrado em',
+          type: CustomTypes.Date,
+        },
+      },
+    },
+    orders: {
+      id: 2,
+      fields: {
+        'product.type': {
+          name: 'Tipo',
+          type: CustomTypes.StringImage,
+        },
+        'product.brand': {
+          name: 'Marca',
+          type: CustomTypes.String,
+        },
+        value: {
+          name: 'Valor',
+          type: CustomTypes.Currency,
+        },
+        amount: {
+          name: 'Quantidade',
+          type: CustomTypes.Number,
+        },
+        created_at: {
+          name: 'Data',
+          type: CustomTypes.Date,
+        },
+      },
+    },
+  };
+
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [total, setTotal] = useState(0);
   const [pageCount, setPageCount] = useState([]);
+  const [menu, setMenu] = useState(menuOptions.products.id);
 
-  async function loadProducts(){
-    if(loading)
-      return;
-       
-    setLoading(true);
+  useEffect(() => {
+    async function loadProducts() {
+      setLoading(true);
 
-    try{
-      const res = await api.get('products',{
-        params:{ page }
-      });
+      try {
+        let response;
 
-      setProducts(res.data);
+        switch (menu) {
+          case menuOptions.orders.id: {
+            response = await api.get('orders', {
+              params: { page },
+            });
+            break;
+          }
 
-      const headerValue = res.headers['x-total-count'];
+          default: {
+            response = await api.get('products', {
+              params: { page },
+            });
+          }
+        }
 
-      setTotal(headerValue);
+        setProducts(response.data);
 
-      const pages = [];
+        const headerValue = response.headers['x-total-count'];
 
-      const t = (Math.ceil(headerValue/10));
+        const pages = [];
 
-      for(let i=0; i<t; i++){      
-        pages.push(i+1);          
+        const t = Math.ceil(headerValue / 10);
+
+        for (let i = 0; i < t; i++) {
+          pages.push(i + 1);
+        }
+
+        setPageCount(pages);
+      } catch {
+        alert('Não foi possivel listar os produtos, volte mais tarde.');
       }
-      setPageCount(pages);
-      
-    }catch{
-      alert('Não foi possivel listar os produtos, volte mais tarde.');
+
+      setLoading(false);
     }
 
-    setLoading(false);
-  }
+    loadProducts();
+  }, [menu, menuOptions.orders.id, page]);
 
-  useEffect(() => { loadProducts() },[page])
-
-  function renderPages(pageNumber){
-    return(
-      <li key={pageNumber} onClick={()=>setPage(pageNumber)} className={pageNumber==page?"selected":""}>
-        <span>{pageNumber}</span>            
+  function renderPages(pageNumber) {
+    return (
+      <li
+        key={pageNumber}
+        onClick={() => setPage(pageNumber)}
+        className={pageNumber === page ? 'selected' : ''}
+      >
+        <span>{pageNumber}</span>
       </li>
     );
   }
@@ -62,13 +132,35 @@ export default function Main() {
       <Header />
       <MainContainer>
         <ul className="menu">
-          <li className="selected">Meus Produtos</li>
-          <li>Compras</li>
+          <li
+            onClick={() => setMenu(menuOptions.products.id)}
+            className={menu === menuOptions.products.id ? 'selected' : ''}
+          >
+            Meus Produtos
+          </li>
+          <li
+            onClick={() => setMenu(menuOptions.orders.id)}
+            className={menu === menuOptions.orders.id ? 'selected' : ''}
+          >
+            Compras
+          </li>
         </ul>
 
-        <TableList data={products} />
+        {!loading ? (
+          <TableList
+            data={products}
+            fields={
+              Object.values(menuOptions).filter(
+                (option) => option.id === menu
+              )[0].fields
+            }
+            options={menu === menuOptions.products.id}
+          />
+        ) : (
+          <LoadingComponent />
+        )}
         <PageList>
-          {pageCount.map(number => renderPages(number))}
+          {!loading && pageCount.map((number) => renderPages(number))}
         </PageList>
       </MainContainer>
     </Container>

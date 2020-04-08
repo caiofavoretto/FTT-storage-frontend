@@ -1,47 +1,51 @@
 import React from 'react';
-import { FaTshirt, FaEllipsisH } from 'react-icons/fa';
+import { FaEllipsisH } from 'react-icons/fa';
 
 import { Container, TableHeader, TableBody, Row } from './styles';
 
-export default function TableList({ data }) {
+import TableCell from '../TableCell';
+
+export default function TableList({ data, fields, options = false }) {
+  const keys = Object.keys(fields);
+  const values = Object.values(fields);
+
+  function getKey(obj, key) {
+    const keys = key.split('.');
+
+    let value = obj;
+    keys.map((k) => {
+      if (typeof value === 'object') {
+        return (value = value[k]);
+      }
+    });
+    return value;
+  }
+
   return (
     <Container>
-      <TableHeader>
-        <span>Tipo</span>
-        <span>Marca</span>
-        <span>Valor</span>
-        <span>Valor sugerido</span>
-        <span>Registrado em</span>
-        <span></span>
+      <TableHeader columns={values.length} options={options}>
+        {values.length > 0 &&
+          values.map((value, index) => <span key={index}>{value.name}</span>)}
+        {options && <span></span>}
       </TableHeader>
       <TableBody>
         {data.length > 0 &&
           data.map((obj) => (
-            <Row key={obj._id}>
-              <div>
-                <div className="image">
-                  <FaTshirt size={20} color="#55a262" />
-                </div>
-                <span>{obj.type}</span>
-              </div>
-              <span>{obj.brand}</span>
-              <span>
-                {Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL',
-                }).format(obj.value)}
-              </span>
-              <span>
-                {' '}
-                {Intl.NumberFormat('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL',
-                }).format(obj.sugested_value)}
-              </span>
-              <span>{obj.created_at}</span>
-              <button>
-                <FaEllipsisH size={26} color="#707178" />
-              </button>
+            <Row key={obj._id} columns={keys.length} options={options}>
+              {keys.length > 0 &&
+                keys.map((key, index) => (
+                  <TableCell
+                    key={obj._id + index}
+                    value={getKey(obj, key)}
+                    type={values[index].type}
+                  />
+                ))}
+
+              {options && (
+                <button>
+                  <FaEllipsisH size={26} color="#707178" />
+                </button>
+              )}
             </Row>
           ))}
       </TableBody>
