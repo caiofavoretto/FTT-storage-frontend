@@ -13,7 +13,7 @@ export const MainContainer = styled.section`
   width: 100%;
   margin-top: 128px;
 
-  ul {
+  ul.menu {
     display: flex;
     align-items: center;
 
@@ -35,3 +35,34 @@ export const MainContainer = styled.section`
     }
   }
 `;
+
+export const PageList = styled.ul`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 64px;
+
+    li{
+      background: #fff;
+      padding: 12px 8px;
+      border-radius: 8px;
+      font-size: 22px;
+      list-style: none;
+
+      + li{
+        margin-left: 16px;
+      }
+
+      span{
+        color: #707178;
+      }
+      
+      &.selected{
+        background: #55a262;
+
+        span{
+          color: #fff;
+        }
+      }
+    }
+`; 
