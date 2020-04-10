@@ -1,19 +1,41 @@
 import React from 'react';
-import { FaShoppingCart, FaPlus } from 'react-icons/fa';
+import { FaShoppingCart, FaPlus, FaArrowLeft } from 'react-icons/fa';
 
-import { Container, TextButton, ButtonText, IconButton } from './styles';
+import IconButton from '../IconButton';
+import TextButton from '../TextButton';
 
-export default function Header() {
+import { Container } from './styles';
+
+export default function Header({ history, back }) {
+  function handleClickCart(e) {
+    e.preventDefault();
+  }
+
+  function handleClickNovoProduto(e) {
+    e.preventDefault();
+
+    history.push('/novo_produto');
+  }
+
+  function handleClickBack(e) {
+    e.preventDefault();
+
+    history.push('/');
+  }
+
   return (
     <Container>
-      <TextButton>
-        <FaPlus size={22} color="#fff" />
-        <ButtonText>Novo produto</ButtonText>
-      </TextButton>
+      {back ? (
+        <IconButton Icon={FaArrowLeft} onClick={handleClickBack} />
+      ) : (
+        <>
+          <TextButton text="Novo Produto" onClick={handleClickNovoProduto}>
+            <FaPlus size={22} color="#fff" />
+          </TextButton>
 
-      <IconButton>
-        <FaShoppingCart size={22} color="#fff" />
-      </IconButton>
+          <IconButton Icon={FaShoppingCart} onClick={handleClickCart} />
+        </>
+      )}
     </Container>
   );
 }

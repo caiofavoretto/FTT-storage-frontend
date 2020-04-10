@@ -32,6 +32,7 @@ export const Row = styled.div`
   align-items: center;
   font-size: 20px;
   text-transform: capitalize;
+  color: ${(props) => props.color};
 
   button {
     background: none;

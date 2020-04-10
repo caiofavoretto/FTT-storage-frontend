@@ -31,7 +31,12 @@ export default function TableList({ data, fields, options = false }) {
       <TableBody>
         {data.length > 0 &&
           data.map((obj) => (
-            <Row key={obj._id} columns={keys.length} options={options}>
+            <Row
+              key={obj._id}
+              columns={keys.length}
+              options={options}
+              color={obj.canceled_at ? '#FF6D6D' : '#fff'}
+            >
               {keys.length > 0 &&
                 keys.map((key, index) => (
                   <TableCell

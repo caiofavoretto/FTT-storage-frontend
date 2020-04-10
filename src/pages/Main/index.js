@@ -10,7 +10,7 @@ import { CustomTypes } from '../../utils/Enums';
 
 import { Container, MainContainer, PageList } from './styles';
 
-export default function Main() {
+export default function Main({ history }) {
   const menuOptions = {
     products: {
       id: 1,
@@ -49,7 +49,7 @@ export default function Main() {
           type: CustomTypes.String,
         },
         value: {
-          name: 'Valor',
+          name: 'Valor pago',
           type: CustomTypes.Currency,
         },
         amount: {
@@ -92,6 +92,8 @@ export default function Main() {
           }
         }
 
+        console.log(response);
+
         setProducts(response.data);
 
         const headerValue = response.headers['x-total-count'];
@@ -129,7 +131,7 @@ export default function Main() {
 
   return (
     <Container>
-      <Header />
+      <Header history={history} />
       <MainContainer>
         <ul className="menu">
           <li

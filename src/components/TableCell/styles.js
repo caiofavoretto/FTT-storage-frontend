@@ -13,9 +13,9 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-  }
 
-  span {
-    margin-left: 16px;
+    + span {
+      margin-left: 16px;
+    }
   }
 `;
