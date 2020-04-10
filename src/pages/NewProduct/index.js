@@ -20,7 +20,7 @@ export default function NewProduct({ history }) {
   const [value, setValue] = useState('');
   const [sugested_value, setSugested_value] = useState('');
   const [size, setSize] = useState('');
-  const [color, setColor] = useState('');
+  const [color, setColor] = useState('#fff');
   const [description, setDescription] = useState('');
 
   async function handleCreate(e) {
@@ -90,10 +90,26 @@ export default function NewProduct({ history }) {
               <InputColor>
                 <label htmlFor="Cor">Cor</label>
                 <div className="color-container">
-                  <Color onClick={() => setColor('#fff')} color="#fff" />
-                  <Color onClick={() => setColor('#000')} color="#000" />
-                  <Color onClick={() => setColor('#FF0A3C')} color="#FF0A3C" />
-                  <Color onClick={() => setColor('#050E63')} color="#050E63" />
+                  <Color
+                    className={color === '#fff' ? 'selected' : ''}
+                    onClick={() => setColor('#fff')}
+                    color="#fff"
+                  />
+                  <Color
+                    className={color === '#000' ? 'selected' : ''}
+                    onClick={() => setColor('#000')}
+                    color="#000"
+                  />
+                  <Color
+                    className={color === '#FF0A3C' ? 'selected' : ''}
+                    onClick={() => setColor('#FF0A3C')}
+                    color="#FF0A3C"
+                  />
+                  <Color
+                    className={color === '#050E63' ? 'selected' : ''}
+                    onClick={() => setColor('#050E63')}
+                    color="#050E63"
+                  />
                 </div>
               </InputColor>
             </div>

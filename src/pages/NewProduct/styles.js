@@ -74,8 +74,8 @@ export const Color = styled.div`
     margin-left: 16px;
   }
 
-  &:hover {
-    opacity: 0.8;
+  &.selected {
+    border: solid 5px #55a262;
   }
 `;
 
