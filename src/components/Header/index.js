@@ -9,6 +9,8 @@ import { Container } from './styles';
 export default function Header({ history, back }) {
   function handleClickCart(e) {
     e.preventDefault();
+
+    history.push('/nova_compra');
   }
 
   function handleClickNovoProduto(e) {
