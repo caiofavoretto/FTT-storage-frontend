@@ -46,7 +46,7 @@ export const InputColor = styled.div`
   margin-top: 32px;
   min-width: calc(30% - 64px);
 
-  label {
+  span {
     color: #707178;
     font-size: 18px;
     font-weight: bold;

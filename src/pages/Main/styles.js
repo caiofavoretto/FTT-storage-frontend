@@ -18,19 +18,22 @@ export const MainContainer = styled.section`
     align-items: center;
 
     li {
-      font-weight: bold;
-      font-size: 28px;
       color: rgba(255, 255, 255, 0.2);
       list-style: none;
-
-      cursor: pointer;
 
       + li {
         margin-left: 80px;
       }
+
+      button {
+        font-weight: bold;
+        font-size: 28px;
+        background: none;
+        border: 0;
+      }
     }
 
-    li.selected {
+    li.selected button {
       color: #55a262;
     }
   }
@@ -44,9 +47,7 @@ export const PageList = styled.ul`
 
   li {
     background: #fff;
-    padding: 12px 8px;
     border-radius: 8px;
-    font-size: 22px;
     list-style: none;
 
     cursor: pointer;
@@ -55,14 +56,19 @@ export const PageList = styled.ul`
       margin-left: 16px;
     }
 
-    span {
+    button {
+      padding: 12px 12px;
       color: #707178;
+      font-weight: bold;
+      font-size: 22px;
+      background: none;
+      border: 0;
     }
 
     &.selected {
       background: #55a262;
 
-      span {
+      button {
         color: #fff;
       }
     }

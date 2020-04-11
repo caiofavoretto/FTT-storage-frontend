@@ -4,7 +4,7 @@ import { FaTshirt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
-import { Container } from './styles';
+import { Container, Color } from './styles';
 
 import { CustomTypes } from '../../utils/Enums';
 
@@ -31,6 +31,10 @@ export default function TableCell({ value, type }) {
             }).format(value)}
           </span>
         );
+      }
+
+      case CustomTypes.Color: {
+        return <Color color={value} />;
       }
 
       case CustomTypes.Date: {

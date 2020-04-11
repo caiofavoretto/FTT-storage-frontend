@@ -4,4 +4,5 @@ export const CustomTypes = {
   Date: 3,
   Currency: 4,
   StringImage: 5,
+  Color: 6,
 };

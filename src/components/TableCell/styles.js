@@ -19,3 +19,10 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Color = styled.div`
+  height: 48px;
+  width: 48px;
+  border-radius: 16px;
+  background: ${(props) => `#${props.color.toString()}`};
+`;

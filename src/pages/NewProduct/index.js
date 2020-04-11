@@ -20,7 +20,7 @@ export default function NewProduct({ history }) {
   const [value, setValue] = useState('');
   const [sugested_value, setSugested_value] = useState('');
   const [size, setSize] = useState('');
-  const [color, setColor] = useState('#fff');
+  const [color, setColor] = useState('fff');
   const [description, setDescription] = useState('');
 
   async function handleCreate(e) {
@@ -88,26 +88,26 @@ export default function NewProduct({ history }) {
             <div>
               <Input value={size} onChange={setSize} short name="Tamanho" />
               <InputColor>
-                <label htmlFor="Cor">Cor</label>
+                <span htmlFor="Cor">Cor</span>
                 <div className="color-container">
                   <Color
-                    className={color === '#fff' ? 'selected' : ''}
-                    onClick={() => setColor('#fff')}
+                    className={color === 'fff' ? 'selected' : ''}
+                    onClick={() => setColor('fff')}
                     color="#fff"
                   />
                   <Color
-                    className={color === '#000' ? 'selected' : ''}
-                    onClick={() => setColor('#000')}
+                    className={color === '000' ? 'selected' : ''}
+                    onClick={() => setColor('000')}
                     color="#000"
                   />
                   <Color
-                    className={color === '#FF0A3C' ? 'selected' : ''}
-                    onClick={() => setColor('#FF0A3C')}
+                    className={color === 'FF0A3C' ? 'selected' : ''}
+                    onClick={() => setColor('FF0A3C')}
                     color="#FF0A3C"
                   />
                   <Color
-                    className={color === '#050E63' ? 'selected' : ''}
-                    onClick={() => setColor('#050E63')}
+                    className={color === '050E63' ? 'selected' : ''}
+                    onClick={() => setColor('050E63')}
                     color="#050E63"
                   />
                 </div>

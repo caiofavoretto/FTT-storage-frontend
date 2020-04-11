@@ -9,8 +9,10 @@ export const TableHeader = styled.div`
   padding: 16px 0;
   margin-top: 64px;
   display: grid;
-  grid-template-columns: repeat(${(props) => props.columns}, 1fr) ${(props) =>
-      props.options ? '25px' : ''};
+  grid-template-columns: ${(props) =>
+      props.columns.map((column) =>
+        column.size ? `${column.size}px ` : '1fr '
+      )} ${(props) => (props.options ? '25px' : '')};
 
   span {
     font-size: 18px;
@@ -27,12 +29,15 @@ export const TableBody = styled.div`
 export const Row = styled.div`
   padding: 16px 0;
   display: grid;
-  grid-template-columns: repeat(${(props) => props.columns}, 1fr) ${(props) =>
-      props.options ? '25px' : ''};
+  grid-template-columns: ${(props) =>
+      props.columns.map((column) =>
+        column.size ? `${column.size}px ` : '1fr '
+      )} ${(props) => (props.options ? '25px' : '')};
   align-items: center;
   font-size: 20px;
   text-transform: capitalize;
   color: ${(props) => props.color};
+  border-radius: 8px;
 
   button {
     background: none;
